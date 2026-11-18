@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KHANH@NQ — Lập trình AI Coding | Tăng tốc phát triển phần mềm với AI</title>
+<meta name="description" content="KHANH@NQ cung cấp giải pháp Lập trình AI Coding chuyên sâu: xây dựng AI Agent, Copilot nội bộ, tự động hóa code review và fine-tune LLM cho doanh nghiệp." />
+<meta name="keywords" content="AI Coding, Lập trình AI, AI Agent, Copilot, LLM, Claude Code, Automation, KHANH@NQ" />
+<meta name="author" content="KHANH@NQ" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="KHANH@NQ — Lập trình AI Coding" />
+<meta property="og:description" content="Xây dựng AI Agent, Copilot và giải pháp tự động hóa lập trình cho doanh nghiệp. Code nhanh hơn 10x với sức mạnh AI." />
+<meta property="og:site_name" content="KHANH@NQ" />
+<meta property="og:locale" content="vi_VN" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="KHANH@NQ — Lập trình AI Coding" />
+<meta name="twitter:description" content="Giải pháp AI Coding chuyên sâu cho doanh nghiệp hiện đại." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ================= RESET & BASE ================= */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  :root {
+    --primary: #6366f1;
+    --primary-light: #818cf8;
+    --secondary: #a855f7;
+    --accent: #06b6d4;
+    --bg: #0a0b14;
+    --bg-soft: #11131f;
+    --surface: #161a2b;
+    --surface-light: #1e2338;
+    --border: rgba(255,255,255,0.08);
+    --text: #e5e7eb;
+    --text-muted: #9ca3af;
+    --text-dim: #6b7280;
+    --success: #10b981;
+    --danger: #ef4444;
+    --radius: 14px;
+    --shadow-lg: 0 20px 50px -20px rgba(99,102,241,0.35);
+    --gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #06b6d4 100%);
+    --gradient-soft: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(168,85,247,0.08));
+  }
+  body {
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(99,102,241,0.18), transparent 45%),
+      radial-gradient(circle at 85% 70%, rgba(168,85,247,0.15), transparent 45%),
+      radial-gradient(circle at 50% 100%, rgba(6,182,212,0.12), transparent 50%);
+    z-index: -1;
+    pointer-events: none;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; }
+  input, textarea { font-family: inherit; }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  section { padding: 100px 0; position: relative; }
+
+  /* ================= TYPOGRAPHY ================= */
+  h1, h2, h3 { font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+  h2 {
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--text-muted);
+    max-width: 640px;
+    margin: 0 auto 60px;
+    font-size: 1.05rem;
+  }
+  .grad-text {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 6px 14px;
+    background: var(--gradient-soft);
+    color: var(--primary-light);
+    border: 1px solid rgba(99,102,241,0.25);
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+
+  /* ================= HEADER ================= */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,11,20,0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid transparent;
+    transition: all 0.35s ease;
+  }
+  header.scrolled {
+    background: rgba(10,11,20,0.92);
+    border-bottom-color: var(--border);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--gradient);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--gradient);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  .burger {
+    display: none;
+    width: 40px; height: 40px;
+    background: transparent;
+    position: relative;
+  }
+  .burger span {
+    position: absolute;
+    left: 10px;
+    width: 20px; height: 2px;
+    background: var(--text);
+    transition: all 0.3s;
+  }
+  .burger span:nth-child(1) { top: 14px; }
+  .burger span:nth-child(2) { top: 19px; }
+  .burger span:nth-child(3) { top: 24px; }
+  .burger.open span:nth-child(1) { transform: rotate(45deg); top: 19px; }
+  .burger.open span:nth-child(2) { opacity: 0; }
+  .burger.open span:nth-child(3) { transform: rotate(-45deg); top: 19px; }
+
+  /* ================= BUTTON ================= */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 28px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary {
+    background: var(--gradient);
+    color: white;
+    box-shadow: var(--shadow-lg);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 25px 60px -15px rgba(99,102,241,0.5); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.05);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+
+  /* ================= HERO ================= */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 120px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5.2vw, 3.8rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .hero p.lead {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    margin-bottom: 36px;
+    max-width: 520px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-trust {
+    margin-top: 48px;
+    display: flex;
+    gap: 36px;
+    flex-wrap: wrap;
+  }
+  .trust-item { display: flex; gap: 10px; align-items: center; font-size: 0.9rem; color: var(--text-muted); }
+  .trust-item svg { color: var(--accent); width: 20px; height: 20px; }
+
+  /* Code preview visual */
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    max-width: 480px;
+    margin-left: auto;
+  }
+  .code-card {
+    position: absolute;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.8rem;
+    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+  }
+  .code-card.c1 {
+    top: 0; left: 0;
+    width: 70%;
+    animation: float1 7s ease-in-out infinite;
+  }
+  .code-card.c2 {
+    bottom: 0; right: 0;
+    width: 65%;
+    animation: float2 7s ease-in-out infinite;
+  }
+  .code-card.c3 {
+    top: 45%; left: 20%;
+    width: 60%;
+    animation: float3 7s ease-in-out infinite;
+  }
+  @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(14px)} }
+  @keyframes float3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  .code-dots { display: flex; gap: 6px; margin-bottom: 12px; }
+  .code-dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .code-dots span:nth-child(1){background:#ef4444}
+  .code-dots span:nth-child(2){background:#f59e0b}
+  .code-dots span:nth-child(3){background:#10b981}
+  .k { color: #c084fc; }
+  .s { color: #86efac; }
+  .n { color: #fde047; }
+  .cm { color: var(--text-dim); }
+  .fn { color: #67e8f9; }
+
+  /* ================= ABOUT ================= */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .about-text p { color: var(--text-muted); margin-bottom: 18px; font-size: 1.02rem; }
+  .about-text p:last-of-type { margin-bottom: 0; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 20px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-soft);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .stat-card:hover { transform: translateY(-4px); border-color: rgba(99,102,241,0.3); }
+  .stat-card:hover::before { opacity: 1; }
+  .stat-num {
+    font-size: 2.4rem;
+    font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .stat-label { font-size: 0.88rem; color: var(--text-muted); position: relative; }
+
+  /* ================= SERVICES ================= */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .service-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    transition: all 0.35s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .service-card:hover { transform: translateY(-6px); border-color: rgba(99,102,241,0.35); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    background: var(--gradient-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-light);
+    margin-bottom: 20px;
+  }
+  .service-icon svg { width: 26px; height: 26px; }
+  .service-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+  .service-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 18px; }
+  .service-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .service-features li {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .service-features li::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ================= TESTIMONIALS ================= */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .testimonial {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .testimonial:hover { transform: translateY(-4px); border-color: rgba(168,85,247,0.3); }
+  .quote-mark {
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--primary);
+    opacity: 0.4;
+    font-family: Georgia, serif;
+    margin-bottom: 8px;
+  }
+  .testimonial p.quote {
+    color: var(--text);
+    font-size: 0.98rem;
+    margin-bottom: 24px;
+    line-height: 1.65;
+    flex: 1;
+  }
+  .person {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1.05rem;
+    flex-shrink: 0;
+  }
+  .person-info strong { display: block; font-size: 0.98rem; }
+  .person-info span { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* ================= CONTACT ================= */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 50px;
+  }
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .info-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .info-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: var(--gradient-soft);
+    color: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(99,102,241,0.2);
+  }
+  .info-icon svg { width: 20px; height: 20px; }
+  .info-item strong { display: block; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .info-item span { font-size: 1rem; color: var(--text); }
+
+  form.contact-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px;
+  }
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 13px 16px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 0.98rem;
+    transition: all 0.2s;
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--bg);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+  }
+  .form-group input.invalid,
+  .form-group textarea.invalid {
+    border-color: var(--danger);
+  }
+  .error-msg {
+    display: none;
+    font-size: 0.82rem;
+    color: var(--danger);
+    margin-top: 6px;
+  }
+  .error-msg.show { display: block; }
+  .form-success {
+    display: none;
+    padding: 14px 18px;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.3);
+    color: var(--success);
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+  }
+  .form-success.show { display: block; }
+  .form-error {
+    display: none;
+    padding: 14px 18px;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.3);
+    color: var(--danger);
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+  }
+  .form-error.show { display: block; }
+  form.contact-form .btn { width: 100%; }
+  form.contact-form .btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none !important; }
+  .spinner {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ================= FOOTER ================= */
+  footer {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    padding: 60px 0 30px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  .footer-brand p { color: var(--text-muted); font-size: 0.95rem; margin: 16px 0 24px; max-width: 320px; }
+  .footer-hotline {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    padding: 12px 20px;
+    background: var(--gradient-soft);
+    border: 1px solid rgba(99,102,241,0.25);
+    border-radius: 10px;
+    color: var(--primary-light);
+    font-weight: 600;
+  }
+  .footer-col h4 { font-size: 1rem; margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a { color: var(--text-muted); font-size: 0.93rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--text); }
+  .social-links { display: flex; gap: 12px; margin-top: 20px; }
+  .social-links a {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: all 0.25s;
+  }
+  .social-links a:hover { background: var(--gradient); color: white; border-color: transparent; transform: translateY(-2px); }
+  .social-links svg { width: 18px; height: 18px; }
+  .footer-bottom {
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.88rem;
+  }
+
+  /* ================= ANIMATIONS ================= */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 0.1s; }
+  .reveal.delay-2 { transition-delay: 0.2s; }
+  .reveal.delay-3 { transition-delay: 0.3s; }
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width: 900px) {
+    section { padding: 70px 0; }
+    .hero { padding-top: 110px; min-height: auto; padding-bottom: 60px; }
+    .hero-grid, .about-grid, .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+    .hero-visual { max-width: 400px; margin: 0 auto; }
+    .services-grid, .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .nav-links {
+      position: fixed;
+      top: 70px; right: 0;
+      width: 280px; height: calc(100vh - 70px);
+      flex-direction: column;
+      align-items: flex-start;
+      background: var(--bg-soft);
+      border-left: 1px solid var(--border);
+      padding: 32px 28px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    .nav-links.open { transform: translateX(0); }
+    .nav-links a { font-size: 1.05rem; }
+    .burger { display: block; }
+    .hero-trust { gap: 20px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .stats { grid-template-columns: 1fr; }
+    form.contact-form { padding: 26px 22px; }
+    .hero-actions { flex-direction: column; width: 100%; }
+    .hero-actions .btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header id="header">
+  <div class="container nav">
+    <a href="#" class="logo">
+      <span class="logo-icon">K</span>
+      <span>KHANH<span style="color:var(--accent)">@</span>NQ</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">Giới thiệu</a>
+      <a href="#services">Sản phẩm</a>
+      <a href="#testimonials">Phản hồi</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-content reveal">
+      <span class="eyebrow">AI Coding Studio</span>
+      <h1>Biến ý tưởng thành code <span class="grad-text">nhanh gấp 10 lần</span> với AI</h1>
+      <p class="lead">
+        KHANH@NQ đồng hành cùng doanh nghiệp xây dựng AI Agent, Copilot nội bộ và giải pháp tự động hóa lập trình — giúp đội ngũ dev tập trung vào sáng tạo thay vì tác vụ lặp lại.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">
+          Nhận tư vấn miễn phí
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#services" class="btn btn-ghost">Khám phá sản phẩm</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Tiết kiệm 60% thời gian code
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Tích hợp Claude, GPT, Gemini
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Bảo mật dữ liệu doanh nghiệp
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual reveal delay-2">
+      <div class="code-card c1">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <div><span class="cm">// AI Agent builder</span></div>
+        <div><span class="k">const</span> <span class="fn">agent</span> = <span class="k">new</span> AIAgent({</div>
+        <div>&nbsp;&nbsp;model: <span class="s">"claude-opus"</span>,</div>
+        <div>&nbsp;&nbsp;tools: [<span class="s">"code"</span>, <span class="s">"search"</span>]</div>
+        <div>});</div>
+      </div>
+      <div class="code-card c3">
+        <div><span class="cm">// Auto review</span></div>
+        <div><span class="fn">review</span>(pr).<span class="fn">then</span>(ok =></div>
+        <div>&nbsp;&nbsp;deploy(ok)</div>
+        <div>);</div>
+      </div>
+      <div class="code-card c2">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <div><span class="cm">// Prompt optimizer</span></div>
+        <div><span class="k">async function</span> <span class="fn">optimize</span>() {</div>
+        <div>&nbsp;&nbsp;<span class="k">return</span> <span class="k">await</span> llm.<span class="fn">tune</span>({</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;temp: <span class="n">0.2</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;top_p: <span class="n">0.9</span></div>
+        <div>&nbsp;&nbsp;});</div>
+        <div>}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="eyebrow">Về chúng tôi</span>
+        <h2 style="text-align:left;">Đội ngũ chuyên gia <span class="grad-text">AI Coding</span> tại Việt Nam</h2>
+        <p>KHANH@NQ là studio chuyên sâu về <strong style="color:var(--text)">Lập trình AI Coding</strong>, thành lập với sứ mệnh mang công nghệ AI tiên tiến đến gần hơn với các đội ngũ phát triển phần mềm Việt Nam.</p>
+        <p>Chúng tôi xây dựng AI Agent tùy chỉnh, triển khai Copilot nội bộ an toàn, fine-tune mô hình ngôn ngữ cho nghiệp vụ riêng, và tư vấn tích hợp LLM vào quy trình DevOps của doanh nghiệp.</p>
+        <p>Với kinh nghiệm thực chiến qua hàng chục dự án từ startup đến enterprise, chúng tôi hiểu rõ bài toán hiệu suất, chi phí token, bảo mật dữ liệu và khả năng mở rộng khi đưa AI vào production.</p>
+      </div>
+      <div class="stats reveal delay-2">
+        <div class="stat-card">
+          <div class="stat-num" data-target="80" data-suffix="+">0</div>
+          <div class="stat-label">Dự án triển khai</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="150" data-suffix="+">0</div>
+          <div class="stat-label">Khách hàng tin dùng</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="12" data-suffix="+">0</div>
+          <div class="stat-label">AI Agent đã build</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="60" data-suffix="%">0</div>
+          <div class="stat-label">Thời gian code tiết kiệm</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="24" data-suffix="/7">0</div>
+          <div class="stat-label">Hỗ trợ kỹ thuật</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="99" data-suffix="%">0</div>
+          <div class="stat-label">Khách hàng hài lòng</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section id="services" style="background:var(--bg-soft);">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">Sản phẩm & Dịch vụ</span>
+      <h2>Giải pháp <span class="grad-text">AI Coding</span> toàn diện</h2>
+      <p class="section-sub">Từ ý tưởng đến triển khai — chúng tôi đồng hành ở mọi giai đoạn giúp doanh nghiệp khai thác tối đa sức mạnh của AI trong phát triển phần mềm.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>AI Agent Development</h3>
+        <p>Xây dựng AI Agent tùy chỉnh sử dụng Claude, GPT, Gemini — tích hợp tool use, MCP server, giúp tự động hóa quy trình chuyên biệt của doanh nghiệp.</p>
+        <ul class="service-features">
+          <li>Multi-agent orchestration</li>
+          <li>Tool use & function calling</li>
+          <li>MCP server tích hợp</li>
+        </ul>
+      </div>
+
+      <div class="service-card reveal delay-1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>AI Copilot nội bộ</h3>
+        <p>Triển khai Copilot chạy trên hạ tầng riêng, học từ codebase của bạn — bảo mật tuyệt đối, hiểu context nghiệp vụ và chuẩn code của team.</p>
+        <ul class="service-features">
+          <li>On-premise deployment</li>
+          <li>Fine-tune theo codebase</li>
+          <li>Tích hợp VSCode, JetBrains</li>
+        </ul>
+      </div>
+
+      <div class="service-card reveal delay-2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <h3>Code Review tự động</h3>
+        <p>Agent tự động review PR, phát hiện bug, gợi ý refactor theo chuẩn team — tích hợp GitHub/GitLab, giảm 70% thời gian review thủ công.</p>
+        <ul class="service-features">
+          <li>GitHub/GitLab bot</li>
+          <li>Phát hiện security issue</li>
+          <li>Suggest refactor thông minh</li>
+        </ul>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </div>
+        <h3>Fine-tune LLM</h3>
+        <p>Huấn luyện mô hình ngôn ngữ theo dữ liệu & nghiệp vụ riêng — tiết kiệm chi phí token, phản hồi chính xác, chạy được trên GPU on-premise.</p>
+        <ul class="service-features">
+          <li>Dataset preparation</li>
+          <li>LoRA / QLoRA training</li>
+          <li>Evaluation & benchmark</li>
+        </ul>
+      </div>
+
+      <div class="service-card reveal delay-1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3>AI DevOps Automation</h3>
+        <p>Tự động hóa pipeline CI/CD, phân tích log, root-cause analysis bằng AI — phát hiện và cảnh báo sự cố trước khi ảnh hưởng người dùng.</p>
+        <ul class="service-features">
+          <li>Log analysis AI</li>
+          <li>Auto incident response</li>
+          <li>Smart alerting</li>
+        </ul>
+      </div>
+
+      <div class="service-card reveal delay-2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <h3>Workshop & Training</h3>
+        <p>Đào tạo đội ngũ dev về Claude Code, Prompt Engineering, Agent Design — khóa học thực chiến, giáo trình cập nhật theo công nghệ mới nhất.</p>
+        <ul class="service-features">
+          <li>Claude Code mastery</li>
+          <li>Prompt engineering</li>
+          <li>Hands-on project</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section id="testimonials">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">Phản hồi khách hàng</span>
+      <h2>Niềm tin từ <span class="grad-text">đối tác & khách hàng</span></h2>
+      <p class="section-sub">Hàng trăm đội ngũ phát triển tại Việt Nam đã chọn KHANH@NQ để tăng tốc quy trình và nâng tầm sản phẩm với AI.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial reveal">
+        <div class="quote-mark">"</div>
+        <p class="quote">Sau khi triển khai AI Copilot của KHANH@NQ, team dev của chúng tôi giảm 55% thời gian viết boilerplate và tăng rõ rệt chất lượng code. Chi phí token cũng tối ưu hơn hẳn.</p>
+        <div class="person">
+          <div class="avatar">NM</div>
+          <div class="person-info">
+            <strong>Nguyễn Minh Tuấn</strong>
+            <span>CTO, FinTech Startup</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial reveal delay-1">
+        <div class="quote-mark">"</div>
+        <p class="quote">Đội ngũ tư vấn rất chuyên sâu về AI Agent. Họ giúp chúng tôi xây dựng một hệ thống automation hoàn chỉnh, tích hợp Claude vào workflow nội bộ chỉ trong 3 tuần. Rất đáng đồng tiền.</p>
+        <div class="person">
+          <div class="avatar">TA</div>
+          <div class="person-info">
+            <strong>Trần Anh Dũng</strong>
+            <span>Engineering Manager, E-commerce</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial reveal delay-2">
+        <div class="quote-mark">"</div>
+        <p class="quote">Khóa workshop Claude Code của KHANH@NQ cực kỳ thực chiến. Sau 2 ngày, cả team đã biết cách dùng AI để refactor code cũ và tự động hóa test. Giảng viên tâm huyết, nội dung rất mới.</p>
+        <div class="person">
+          <div class="avatar">LH</div>
+          <div class="person-info">
+            <strong>Lê Hoàng Phúc</strong>
+            <span>Tech Lead, SaaS Company</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" style="background:var(--bg-soft);">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">Liên hệ</span>
+      <h2>Sẵn sàng <span class="grad-text">bứt phá cùng AI?</span></h2>
+      <p class="section-sub">Gửi thông tin để nhận tư vấn miễn phí trong vòng 24 giờ, hoặc liên hệ trực tiếp qua các kênh bên dưới.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="info-item">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <strong>Địa chỉ</strong>
+            <span>Tầng 12, Tòa nhà Innovation, 123 Nguyễn Văn Linh, Quận 7, TP.HCM</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <strong>Hotline</strong>
+            <span>0901 234 567 (Zalo/Call)</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <strong>Email</strong>
+            <span>hello@khanhnq.ai</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <strong>Giờ làm việc</strong>
+            <span>Thứ 2 - Thứ 7: 8:30 - 18:00<br/>Chủ nhật: nghỉ</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal delay-1" id="contactForm" action="https://formspree.io/f/mvkarwoa" method="POST" novalidate>
+        <div class="form-success" id="formSuccess">
+          ✓ Đã gửi thành công! Chúng tôi sẽ liên hệ lại với bạn trong 24 giờ.
+        </div>
+        <div class="form-error" id="formError">
+          ✗ Có lỗi xảy ra khi gửi. Vui lòng thử lại hoặc liên hệ hotline.
+        </div>
+        <div class="form-group">
+          <label for="name">Họ và tên *</label>
+          <input type="text" id="name" name="name" placeholder="Nguyễn Văn A" required />
+          <div class="error-msg" id="err-name">Vui lòng nhập họ và tên</div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Số điện thoại *</label>
+          <input type="tel" id="phone" name="phone" placeholder="0901 234 567" required />
+          <div class="error-msg" id="err-phone">Số điện thoại không hợp lệ</div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="ban@congty.com" required />
+          <div class="error-msg" id="err-email">Email không hợp lệ</div>
+        </div>
+        <div class="form-group">
+          <label for="message">Nội dung</label>
+          <textarea id="message" name="message" placeholder="Mô tả ngắn về dự án hoặc nhu cầu của bạn..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          <span class="btn-text">Gửi thông tin</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <span class="logo-icon">K</span>
+          <span>KHANH<span style="color:var(--accent)">@</span>NQ</span>
+        </a>
+        <p>AI Coding Studio — đồng hành cùng doanh nghiệp xây dựng tương lai lập trình thông minh hơn.</p>
+        <div class="footer-hotline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          Hotline: 0901 234 567
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Khám phá</h4>
+        <ul>
+          <li><a href="#about">Giới thiệu</a></li>
+          <li><a href="#services">Sản phẩm</a></li>
+          <li><a href="#testimonials">Phản hồi</a></li>
+          <li><a href="#contact">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kết nối</h4>
+        <ul>
+          <li><a href="mailto:hello@khanhnq.ai">hello@khanhnq.ai</a></li>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Điều khoản dịch vụ</a></li>
+        </ul>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+          </a>
+          <a href="#" aria-label="Zalo">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.72 1.32 5.16 3.4 6.8L4.5 22l4.7-2.1c.9.2 1.84.3 2.8.3 5.52 0 10-4.03 10-9S17.52 2 12 2zm-3 10.5l-2 2.5v-2.5H6V9h5v1h-3v2.5h1zm4.5-2h-1.3l-1.2 2.2L9.8 10.5H8.5V14h.8v-2.4l1.1 2h.4l1.1-2V14h1v-3.5zm3.5 1.8c0 .96-.78 1.7-1.75 1.7-.97 0-1.75-.74-1.75-1.7v-1.8h.8v1.8c0 .5.42.9.95.9s.95-.4.95-.9v-1.8h.8v1.8z"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5V8h3v11zM6.5 6.7a1.8 1.8 0 110-3.5 1.8 1.8 0 010 3.5zM19 19h-3v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V19h-3V8h2.8v1.5h.1c.4-.7 1.4-1.5 2.9-1.5 3.1 0 3.7 2 3.7 4.7V19z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 KHANH@NQ — AI Coding Studio. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ============ Header scroll effect ============
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ============ Mobile menu ============
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // ============ Reveal on scroll ============
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ============ Counter animation ============
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1600;
+      const start = performance.now();
+      function step(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      }
+      requestAnimationFrame(step);
+      counterObserver.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.stat-num').forEach(el => counterObserver.observe(el));
+
+  // ============ Form validation + Formspree submit ============
+  const form = document.getElementById('contactForm');
+  const successBox = document.getElementById('formSuccess');
+  const errorBox = document.getElementById('formError');
+  const submitBtn = document.getElementById('submitBtn');
+  const btnTextOriginal = submitBtn.querySelector('.btn-text').textContent;
+
+  function setError(inputId, hasError) {
+    const input = document.getElementById(inputId);
+    const err = document.getElementById('err-' + inputId);
+    if (hasError) {
+      input.classList.add('invalid');
+      err.classList.add('show');
+    } else {
+      input.classList.remove('invalid');
+      err.classList.remove('show');
+    }
+  }
+
+  function setSubmitting(isLoading) {
+    submitBtn.disabled = isLoading;
+    submitBtn.innerHTML = isLoading
+      ? '<span class="spinner"></span><span class="btn-text">Đang gửi...</span>'
+      : '<span class="btn-text">' + btnTextOriginal + '</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    successBox.classList.remove('show');
+    errorBox.classList.remove('show');
+
+    const name = form.name.value.trim();
+    const phone = form.phone.value.trim();
+    const email = form.email.value.trim();
+
+    const phoneRe = /^(0|\+84)[0-9\s]{8,14}$/;
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const nameErr = name.length < 2;
+    const phoneErr = !phoneRe.test(phone);
+    const emailErr = !emailRe.test(email);
+
+    setError('name', nameErr);
+    setError('phone', phoneErr);
+    setError('email', emailErr);
+
+    if (nameErr || phoneErr || emailErr) return;
+
+    setSubmitting(true);
+    try {
+      const formData = new FormData(form);
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        successBox.classList.add('show');
+        form.reset();
+        successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => successBox.classList.remove('show'), 6000);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        errorBox.textContent = '✗ ' + (data.errors && data.errors[0] && data.errors[0].message
+          ? data.errors[0].message
+          : 'Có lỗi xảy ra khi gửi. Vui lòng thử lại hoặc liên hệ hotline.');
+        errorBox.classList.add('show');
+      }
+    } catch (err) {
+      errorBox.textContent = '✗ Không thể kết nối tới máy chủ. Vui lòng kiểm tra mạng và thử lại.';
+      errorBox.classList.add('show');
+    } finally {
+      setSubmitting(false);
+    }
+  });
+
+  // Clear error on input
+  ['name','phone','email'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => setError(id, false));
+  });
+</script>
+
+</body>
+</html>
