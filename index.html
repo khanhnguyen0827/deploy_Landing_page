@@ -220,84 +220,182 @@
   }
   .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
 
-  /* ================= HERO ================= */
+  /* ================= HERO (minimal & modern) ================= */
   .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding-top: 120px;
+    padding-top: 140px;
+    padding-bottom: 80px;
     position: relative;
     overflow: hidden;
   }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 60px;
-    align-items: center;
-  }
-  .hero h1 {
-    font-size: clamp(2.2rem, 5.2vw, 3.8rem);
-    line-height: 1.1;
-    margin-bottom: 20px;
-  }
-  .hero p.lead {
-    font-size: 1.15rem;
-    color: var(--text-muted);
-    margin-bottom: 36px;
-    max-width: 520px;
-  }
-  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-  .hero-trust {
-    margin-top: 48px;
-    display: flex;
-    gap: 36px;
-    flex-wrap: wrap;
-  }
-  .trust-item { display: flex; gap: 10px; align-items: center; font-size: 0.9rem; color: var(--text-muted); }
-  .trust-item svg { color: var(--accent); width: 20px; height: 20px; }
-
-  /* Code preview visual */
-  .hero-visual {
-    position: relative;
-    aspect-ratio: 1 / 1;
-    max-width: 480px;
-    margin-left: auto;
-  }
-  .code-card {
+  .hero-bg-grid {
     position: absolute;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    font-family: 'Consolas', 'Monaco', monospace;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 75%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-glow {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 600px;
+    background: radial-gradient(ellipse at center, rgba(99,102,241,0.25), transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-head { max-width: 780px; }
+  .eyebrow-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 16px;
     font-size: 0.8rem;
-    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.5);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
     backdrop-filter: blur(10px);
   }
-  .code-card.c1 {
-    top: 0; left: 0;
-    width: 70%;
-    animation: float1 7s ease-in-out infinite;
+  .eyebrow-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.18);
+    animation: hero-pulse 2.2s ease-in-out infinite;
   }
-  .code-card.c2 {
-    bottom: 0; right: 0;
-    width: 65%;
-    animation: float2 7s ease-in-out infinite;
+  @keyframes hero-pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(0.85); }
   }
-  .code-card.c3 {
-    top: 45%; left: 20%;
-    width: 60%;
-    animation: float3 7s ease-in-out infinite;
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4.3rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    margin-bottom: 24px;
+    font-weight: 600;
   }
-  @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-  @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(14px)} }
-  @keyframes float3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .hero-lead {
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    color: var(--text-muted);
+    max-width: 580px;
+    margin: 0 auto 36px;
+    line-height: 1.65;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 0.86rem;
+    color: var(--text-dim);
+  }
+  .hero-meta-divider {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    opacity: 0.5;
+  }
 
-  .code-dots { display: flex; gap: 6px; margin-bottom: 12px; }
-  .code-dots span { width: 10px; height: 10px; border-radius: 50%; }
-  .code-dots span:nth-child(1){background:#ef4444}
-  .code-dots span:nth-child(2){background:#f59e0b}
-  .code-dots span:nth-child(3){background:#10b981}
+  /* Terminal preview */
+  .hero-terminal {
+    margin-top: 72px;
+    width: 100%;
+    max-width: 760px;
+    background: rgba(17, 19, 31, 0.85);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+      0 40px 100px -25px rgba(0,0,0,0.65),
+      0 0 120px -30px rgba(99,102,241,0.35);
+  }
+  .terminal-head {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    background: rgba(10,11,20,0.5);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .terminal-dots { display: flex; gap: 7px; }
+  .terminal-dots span { width: 11px; height: 11px; border-radius: 50%; }
+  .terminal-dots span:nth-child(1) { background: #ff5f57; }
+  .terminal-dots span:nth-child(2) { background: #febc2e; }
+  .terminal-dots span:nth-child(3) { background: #28c840; }
+  .terminal-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-family: 'Consolas', monospace;
+  }
+  .terminal-body {
+    padding: 22px 0;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.92rem;
+    line-height: 1.75;
+    text-align: left;
+  }
+  .code-line {
+    display: flex;
+    padding-right: 24px;
+    white-space: pre;
+  }
+  .code-ln {
+    display: inline-block;
+    width: 52px;
+    padding-right: 20px;
+    text-align: right;
+    color: var(--text-dim);
+    opacity: 0.5;
+    flex-shrink: 0;
+    user-select: none;
+  }
+  .cursor-blink {
+    display: inline-block;
+    width: 7px;
+    height: 1em;
+    background: var(--primary-light);
+    vertical-align: text-bottom;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
   .k { color: #c084fc; }
   .s { color: #86efac; }
   .n { color: #fde047; }
@@ -659,12 +757,14 @@
   /* ================= RESPONSIVE ================= */
   @media (max-width: 900px) {
     section { padding: 70px 0; }
-    .hero { padding-top: 110px; min-height: auto; padding-bottom: 60px; }
-    .hero-grid, .about-grid, .contact-grid {
+    .hero { padding-top: 110px; min-height: auto; padding-bottom: 70px; }
+    .hero-terminal { margin-top: 52px; }
+    .terminal-body { font-size: 0.82rem; }
+    .code-ln { width: 40px; padding-right: 14px; }
+    .about-grid, .contact-grid {
       grid-template-columns: 1fr;
       gap: 50px;
     }
-    .hero-visual { max-width: 400px; margin: 0 auto; }
     .services-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -687,11 +787,13 @@
     .nav-links.open { transform: translateX(0); }
     .nav-links a { font-size: 1.05rem; }
     .burger { display: block; }
-    .hero-trust { gap: 20px; }
     .stats { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
     .services-grid { grid-template-columns: 1fr; }
+    .hero-meta { gap: 10px; font-size: 0.78rem; }
+    .terminal-body { font-size: 0.74rem; }
+    .code-ln { width: 32px; padding-right: 10px; }
   }
   @media (max-width: 480px) {
     .stats { grid-template-columns: 1fr; }
@@ -724,59 +826,50 @@
 
 <!-- ================= HERO ================= -->
 <section class="hero">
-  <div class="container hero-grid">
-    <div class="hero-content reveal">
-      <span class="eyebrow">AI Coding Studio</span>
-      <h1>Biến ý tưởng thành code <span class="grad-text">nhanh gấp 10 lần</span> với AI</h1>
-      <p class="lead">
-        KhanhDEV đồng hành cùng doanh nghiệp xây dựng AI Agent, Copilot nội bộ và giải pháp tự động hóa lập trình — giúp đội ngũ dev tập trung vào sáng tạo thay vì tác vụ lặp lại.
+  <div class="hero-glow"></div>
+  <div class="hero-bg-grid"></div>
+  <div class="container hero-wrap">
+    <div class="hero-head reveal">
+      <span class="eyebrow-pill">
+        <span class="eyebrow-dot"></span>
+        AI Coding Studio · Đang nhận dự án 2026
+      </span>
+      <h1>Code nhanh hơn <span class="grad-text">10 lần</span><br/>với AI đồng hành</h1>
+      <p class="hero-lead">
+        KhanhDEV xây dựng AI Agent, Copilot nội bộ và những khóa học thực chiến giúp đội ngũ dev tập trung vào sáng tạo thay vì tác vụ lặp lại.
       </p>
       <div class="hero-actions">
         <a href="#contact" class="btn btn-primary">
           Nhận tư vấn miễn phí
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="#services" class="btn btn-ghost">Khám phá sản phẩm</a>
+        <a href="#services" class="btn btn-ghost">Xem khóa học</a>
       </div>
-      <div class="hero-trust">
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-          Tiết kiệm 60% thời gian code
-        </div>
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-          Tích hợp Claude, GPT, Gemini
-        </div>
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-          Bảo mật dữ liệu doanh nghiệp
-        </div>
+      <div class="hero-meta">
+        <span>Claude · GPT · Gemini</span>
+        <span class="hero-meta-divider"></span>
+        <span>Tiết kiệm 60% thời gian</span>
+        <span class="hero-meta-divider"></span>
+        <span>Bảo mật doanh nghiệp</span>
       </div>
     </div>
-    <div class="hero-visual reveal delay-2">
-      <div class="code-card c1">
-        <div class="code-dots"><span></span><span></span><span></span></div>
-        <div><span class="cm">// AI Agent builder</span></div>
-        <div><span class="k">const</span> <span class="fn">agent</span> = <span class="k">new</span> AIAgent({</div>
-        <div>&nbsp;&nbsp;model: <span class="s">"claude-opus"</span>,</div>
-        <div>&nbsp;&nbsp;tools: [<span class="s">"code"</span>, <span class="s">"search"</span>]</div>
-        <div>});</div>
+
+    <div class="hero-terminal reveal delay-2">
+      <div class="terminal-head">
+        <div class="terminal-dots"><span></span><span></span><span></span></div>
+        <span class="terminal-title">~/khanhdev/agent.ts</span>
       </div>
-      <div class="code-card c3">
-        <div><span class="cm">// Auto review</span></div>
-        <div><span class="fn">review</span>(pr).<span class="fn">then</span>(ok =></div>
-        <div>&nbsp;&nbsp;deploy(ok)</div>
-        <div>);</div>
-      </div>
-      <div class="code-card c2">
-        <div class="code-dots"><span></span><span></span><span></span></div>
-        <div><span class="cm">// Prompt optimizer</span></div>
-        <div><span class="k">async function</span> <span class="fn">optimize</span>() {</div>
-        <div>&nbsp;&nbsp;<span class="k">return</span> <span class="k">await</span> llm.<span class="fn">tune</span>({</div>
-        <div>&nbsp;&nbsp;&nbsp;&nbsp;temp: <span class="n">0.2</span>,</div>
-        <div>&nbsp;&nbsp;&nbsp;&nbsp;top_p: <span class="n">0.9</span></div>
-        <div>&nbsp;&nbsp;});</div>
-        <div>}</div>
+      <div class="terminal-body">
+        <div class="code-line"><span class="code-ln">1</span><span class="cm">// AI Agent với Claude</span></div>
+        <div class="code-line"><span class="code-ln">2</span><span class="k">import</span> { <span class="fn">Agent</span> } <span class="k">from</span> <span class="s">"@anthropic/sdk"</span>;</div>
+        <div class="code-line"><span class="code-ln">3</span> </div>
+        <div class="code-line"><span class="code-ln">4</span><span class="k">const</span> <span class="fn">bot</span> = <span class="k">new</span> <span class="fn">Agent</span>({</div>
+        <div class="code-line"><span class="code-ln">5</span>  model: <span class="s">"claude-opus-4-7"</span>,</div>
+        <div class="code-line"><span class="code-ln">6</span>  tools: [<span class="s">"code"</span>, <span class="s">"mcp"</span>, <span class="s">"search"</span>],</div>
+        <div class="code-line"><span class="code-ln">7</span>  temperature: <span class="n">0.2</span></div>
+        <div class="code-line"><span class="code-ln">8</span>});</div>
+        <div class="code-line"><span class="code-ln">9</span> </div>
+        <div class="code-line"><span class="code-ln">10</span><span class="k">await</span> bot.<span class="fn">run</span>(<span class="s">"ship it"</span>);<span class="cursor-blink"></span></div>
       </div>
     </div>
   </div>
